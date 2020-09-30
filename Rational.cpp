@@ -83,14 +83,15 @@ Rational &operator - (Rational x, Rational &y){
     return x -= y;
 };
 ostream& operator<< (ostream &out, Rational &x){
-    if (x.nom == 0) out << 0;
+    if (x.denom == 0) out << "Inf";
+    else if (x.nom == 0) out << 0;
     else out << x.nom << "/" << x.denom;
     return out;
 };
 
 int main() {
 // код еще сырой, если делить ан ноль, то не возникнет ошибки. Так ноль выводится тольо если у дроби числитель равен нулю.
-    Rational a(17, 4), b(17, 4);
+    Rational a(17, 4), b(0, 4);
     Rational c = a*b, d = a/b, e = a+b, f = a-b;
     cout << a << " * " << b << " = " << c << endl;
     cout << a << " : " << b << " = " << d << endl;
