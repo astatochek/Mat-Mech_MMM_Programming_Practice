@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 // Вывод первых k простых чисел
-// Работает за ln ln (2k + ln k)
+// Работает за O( k ln ln (2k + ln k) )
 int main() {
     int n, k, s = 0, total = 0;
     cin >> k;
