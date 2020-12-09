@@ -8,13 +8,14 @@ using namespace std;
 
 //Работает при результате не больше инта
 
-//Еще есть проблемы с числами с нечетной длиной, их я пока не решил
+// Иногда она дает неправильные ответы. Почему - не ясно
+
 
 
 int Karatsubo(int a, int b){
 
   //Выходим из рекурсии
-  if (a<10 && b<10) return a*b;
+  if (a<100 && b<100) return a*b;
 
   //Само умножение
 
@@ -40,30 +41,38 @@ int Karatsubo(int a, int b){
     len_a = len_b;
     len_b = help_len;
   }
-  //Вводим число n
-  int n = 0;
-  if (len_a %2 != 0) n = len_a/2+1;
-  else n = len_a/2;
 
-  //Определяем a0, a1, b0, b1
-  for (int i = 0; i < n; i++){
-    a1 += a%10 * pow(10, i);
-    b1 += b%10 * pow(10, i);
-    a/=10;
-    b/=10;
+  a_copy = a;
+  b_copy = b;
+
+  //Вводим число n
+  int n = len_a/2;
+
+//Определяем a0, a1, b0, b1
+  for (int i = 0; i < n; i++) {
+      a1 += a % 10 * pow(10, i);
+
+      b1 += b % 10 * pow(10, i);
+
+      a /= 10;
+      b /= 10;
   }
-  for (int i = 0; i < len_a-n; i++){
-    a0 += a%10 * pow(10, i);
-    b0 += b%10 * pow(10, i);
-    a/=10;
-    b/=10;
+  for (int i = 0; i < len_a - n; i++) {
+      a0 += a % 10 * pow(10, i);
+
+      b0 += b % 10 * pow(10, i);
+
+      a /= 10;
+      b /= 10;
   }
-  // cout << "a0=" << a0 << ", a1=" << a1 << ", b0=" << b0 << ",by1=" << b1 << endl;
-  // cout << "n=" << n << endl;
+  cout << "a=" << a_copy << ", b=" << b_copy << endl;
+  cout << "a0=" << a0 << ", a1=" << a1 << ", b0=" << b0 << ",b1=" << b1 << endl;
+  cout << "n=" << n << endl;
+
   int a0b0 = Karatsubo(a0, b0);
   int a1b1 = Karatsubo(a1, b1);
 
-  return a0b0 * pow(10, len_a)
+  return a0b0 * pow(10, ((len_a % 2 == 1) ? 2*n + 1 : 2*n))
  + (Karatsubo(a0+a1, b0+b1) - a0b0 - a1b1) * pow(10, n) + a1b1;
 
 
