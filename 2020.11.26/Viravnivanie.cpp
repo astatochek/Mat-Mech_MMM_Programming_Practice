@@ -36,29 +36,29 @@ int main()
     m = s1.length();
     n = s2.length();
 
-    vector<vector<int> > D(m, vector<int>(n));
+    vector<vector<int> > D(m+1, vector<int>(n+1));
 
     D[0][0] = 0;
 
-    for (int i = 1; i < m; i++)
+    for (int i = 1; i <= m; i++)
     {
         D[i][0] = D[i - 1][0] + 1;
     }
-    for (int j = 1; j < n; j++)
+    for (int j = 1; j <= n; j++)
     {
         D[0][j] = D[0][j - 1] + 1;
     }
 
-    for (int i = 1; i < m; i++)
+    for (int i = 1; i <= m; i++)
     {
-        for (int j = 1; j < n; j++)
+        for (int j = 1; j <= n; j++)
         {
-            D[i][j] = min( D[i-1][j] + 1, D[i][j-1] + 1, D[i-1][j-1] + ((s1[i] == s2[j]) ? 0 : 1) );
+            D[i][j] = min( D[i-1][j] + 1, D[i][j-1] + 1, D[i-1][j-1] + ((s1[i-1] == s2[j-1]) ? 0 : 1) );
         }
     }
 
 
-    cout << "Количество операций: " << D[m-1][n-1];
+    cout << "Количество операций: " << D[m][n];
 
     return 0;
 }
